@@ -24,8 +24,8 @@ CREATE TABLE `sessions` (
 
 ## Objective(s):
 * MySQL Database for session storage
-* Passive protection from session hijacking
-* Semi-Passive protection from session fixation
+* **Passive protection from session hijacking**
+* **Semi-Passive protection from session fixation**
 * Give user more control of sessions
 * Maintain native session mechanics
 
@@ -66,7 +66,7 @@ session_write_close();
 ```
 
 ## Discuss:
-* Handler can be slow because of database bottleneck (database access accounts for approximately 80-90% of execution time). This handler works great for low traffic sites (< 100 requests/sec) and the added benefits should be obvious. High traffic sites should use another solution such as memcached. The security mechanisms in this class can easily be adapted to use other storage methods.
+* Handler can be slower because of database bottleneck (database access accounts for approximately 80-90% of execution time). This handler works great for low traffic sites (< 100 requests/sec) and the added benefits should be obvious. High traffic sites should use another solution such as memcached. The security mechanisms in this class can easily be adapted to use other storage methods.
 * I did not include cliant ip/remote ip in the clients request signature because it is easily spoofable and can legitimately change from one request to another. At this point in time, without relying on javascript or an additional unique per-request cookie, there is no fullproof way to authenticate a client request. I will plan to add get/set for clients request signature (not sure how I want to do it yet). 
 
 ## Author(s):
