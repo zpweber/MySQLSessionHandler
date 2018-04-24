@@ -4,9 +4,10 @@ PHP(7.1) SessionHandler [using MySQL for storage] with built-in tracking and sec
 This class includes automatic session regeneration/expiration and some very minor client authentication to help prevent session hijacking (session settings will still need to be properly configured; http://php.net/manual/en/session.security.php).
 
 ## Requirements:
-PHP >= v7.1
+* PHP >= v7.1
+* MySQL Server
 
-MySQL Table definition for PHP(64-bit):
+#### MySQL Table definition for PHP(64-bit):
 ```sql
 CREATE TABLE `sessions` (
   `session_id` char(48) NOT NULL,
@@ -21,8 +22,15 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
+## Objective(s):
+* MySQL Database for session storage
+* Passive protection from session hijacking
+* Semi-Passive protection from session fixation
+* Give user more control of sessions
+* Maintain native session mechanics
+
 ## Usage:
-### Class method for starting a session (handling built-in):
+#### Class method for starting a session (built-in handling):
 ```php
 $sesHandler = new MySQLSessionHandler(new mysqli('hostName', 'user', 'password', 'dbn'));
 
@@ -32,7 +40,7 @@ $_SESSION['test'] = 'hello world';
 session_write_close();
 ```
 
-### Native session_start() with handling example:
+#### Native session_start() with handling example:
 ```php
 const REGEN_INTERVAL_SEC = 600;
 
@@ -58,7 +66,8 @@ session_write_close();
 ```
 
 ## Discuss:
-1.) Handler can be slow because of database bottleneck (database access accounts for approximately 80-90% of execution time). This handler works great for low traffic sites (< 100 requests/sec) and the added benefits should be obvious. High traffic sites should use another solution such as memcached. The security mechanisms in this class can easily be adapted to use other storage methods. 2.) I did not include cliant ip/remote ip in the clients request signature because it is easily spoofable and can legitimately change from one request to another. At this point in time, without relying on javascript or an additional per-request unique cookie, there is no fullproof way to authenticate a client request. I will plan to add get/set for clients request signature (not sure how I want to implement it yet). 
+* Handler can be slow because of database bottleneck (database access accounts for approximately 80-90% of execution time). This handler works great for low traffic sites (< 100 requests/sec) and the added benefits should be obvious. High traffic sites should use another solution such as memcached. The security mechanisms in this class can easily be adapted to use other storage methods.
+* I did not include cliant ip/remote ip in the clients request signature because it is easily spoofable and can legitimately change from one request to another. At this point in time, without relying on javascript or an additional unique per-request cookie, there is no fullproof way to authenticate a client request. I will plan to add get/set for clients request signature (not sure how I want to do it yet). 
 
 ## Author(s):
 Phillip Weber
