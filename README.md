@@ -22,6 +22,21 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
+#### MySQL Table definition for PHP(32-bit):
+```sql
+CREATE TABLE `sessions` (
+  `session_id` char(48) NOT NULL,
+  `init_unixtime` int(10) unsigned NOT NULL,
+  `last_request_unixtime` int(10) unsigned NOT NULL,
+  `expire_unixtime` int(10) unsigned DEFAULT NULL,
+  `request_signature` varchar(96) DEFAULT NULL,
+  `writes` int(4) unsigned DEFAULT NULL,
+  `data` text,
+  PRIMARY KEY (`session_id`),
+  UNIQUE KEY `session_id_UNIQUE` (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
 ## Objective(s):
 * MySQL Database for session storage
 * **Passive protection from session hijacking**
