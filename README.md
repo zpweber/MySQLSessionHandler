@@ -3,10 +3,10 @@ PHP(7.1) SessionHandler interface using MySQLi
 
 Includes built-in session regeneration/expiration and some very minor client authentication to help prevent session hijacking (of course session settings will still need to be set correctly).
 
-## Requirements
+## Requirements:
 PHP >= v7.1
 
-### MySQL Table definition for PHP(64-bit)...
+MySQL Table definition for PHP(64-bit):
 ```sql
 CREATE TABLE `sessions` (
   `session_id` char(48) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-## Usage
+## Usage:
 ```php
 $sesHandler = new MySQLSessionHandler(new mysqli(HOSTNAME, USERNAME, PASSWORD, DBN));
 
@@ -44,5 +44,5 @@ echo 'TEST: ' . $_SESSION['test'] . '<br/>';
 
 session_write_close();
 ```
-## Author(s)
+## Author(s):
 Phillip Weber
