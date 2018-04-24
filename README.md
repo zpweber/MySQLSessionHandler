@@ -38,7 +38,7 @@ const REGEN_INTERVAL_SEC = 600;
 
 $sesHandler = new MySQLSessionHandler(new mysqli('hostName', 'user', 'password', 'dbn'));
 
-/* Example using native session_start with manual controls - NOTE: this example essentially does what MySQLSessionHandler::start() does */
+/* Example using native session_start with manual controls - NOTE: this example does exactly what MySQLSessionHandler::start() does */
 try{
   session_start();
   if( $sesHandler->getInitTime < ($sesHandler->getCurReqTime() - REGEN_INTERVAL_SEC) ){
