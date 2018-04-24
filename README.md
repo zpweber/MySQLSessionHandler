@@ -3,6 +3,13 @@ PHP(7.1) SessionHandler [using MySQL for storage] with built-in tracking and sec
 
 This class includes automatic session regeneration/expiration and some very minor client authentication to help prevent session hijacking (session settings will still need to be properly configured; http://php.net/manual/en/session.security.php).
 
+## Objective(s):
+* MySQL Database for session storage
+* **Passive protection from session hijacking**
+* **Semi-Passive protection from session fixation**
+* Give user more control of sessions
+* Maintain native session mechanics
+
 ## Requirements:
 * PHP >= v7.1
 * MySQL Server
@@ -36,13 +43,6 @@ CREATE TABLE `sessions` (
   UNIQUE KEY `session_id_UNIQUE` (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
-
-## Objective(s):
-* MySQL Database for session storage
-* **Passive protection from session hijacking**
-* **Semi-Passive protection from session fixation**
-* Give user more control of sessions
-* Maintain native session mechanics
 
 ## Usage:
 #### Class method for starting a session (built-in handling):
