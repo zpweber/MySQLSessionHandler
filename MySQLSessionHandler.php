@@ -37,6 +37,7 @@ class MySQLSessionHandler implements SessionHandlerInterface{
 	}
 	
 	/* TODO: discuss get/set for $this->cOptions */
+	/* TODO: get/set methods for custom client request signatures in a more meaningful way */
 	
 	public function getInitTime(){
 		return $this->sesInitTime;
