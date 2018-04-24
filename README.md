@@ -1,7 +1,7 @@
 # PHP MySQLSessionHandler
 PHP(7.1) SessionHandler interface using MySQLi
 
-Includes built-in session regeneration/expiration and some very minor client authentication to help prevent session hijacking (of course session settings will still need to be set correctly).
+Includes built-in session regeneration/expiration and some very minor client authentication to help prevent session hijacking (session settings will still need to be properly configured; http://php.net/manual/en/session.security.php).
 
 ## Requirements:
 PHP >= v7.1
