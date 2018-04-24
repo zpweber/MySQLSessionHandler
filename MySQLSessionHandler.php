@@ -31,13 +31,19 @@ class MySQLSessionHandler implements SessionHandlerInterface{
 			session_set_save_handler($this);
 		}
 		
-		/* TODO: cOptions from args */
+		/* TODO: $cOptions from args - possibly load from ini or from memory for ease of use/speed */
 		
 		return;
 	}
 	
+	/* TODO: discuss get/set for $this->cOptions */
+	
 	public function getInitTime(){
 		return $this->sesInitTime;
+	}
+	
+	public function getCurReqTime(){
+		return $this->curReqTime;
 	}
 	
 	public function getLastRequestTime(){
