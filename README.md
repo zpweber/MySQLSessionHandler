@@ -22,27 +22,38 @@ CREATE TABLE `sessions` (
 ```
 
 ## Usage:
+### Built-in method for starting a session:
 ```php
-$sesHandler = new MySQLSessionHandler(new mysqli(HOSTNAME, USERNAME, PASSWORD, DBN));
+$sesHandler = new MySQLSessionHandler(new mysqli('hostName', 'user', 'password', 'dbn'));
 
-/* TEST */
-ini_set('session.use_strict_mode', 0);
+/* Use start method for automatic error handling when authentication errors occur */
 $sesHandler->start();
-
-echo 'Init time: ' . $sesHandler->getInitTime() . '<br/>';
-echo 'Last Req. time: ' . $sesHandler->getLastRequestTime() . '<br/>';
-echo 'Expire time: ' . $sesHandler->getExpireTime() . '<br/>';
-echo 'Writes: ' . $sesHandler->getNumWrites() . '<br/>';
-
-if( !isset($_SESSION['test'] ){
-  $_SESSION['test'] = 0;
-}else{
-  $_SESSION['test'] += 1;
-}
-
-echo 'TEST: ' . $_SESSION['test'] . '<br/>';
-
+$_SESSION['test'] = 'hello world';
 session_write_close();
 ```
+
+### Native session_start() with handling:
+```php
+const REGEN_INTERVAL_SEC = 600;
+
+$sesHandler = new MySQLSessionHandler(new mysqli('hostName', 'user', 'password', 'dbn'));
+
+/* Example using native session_start with manual controls - NOTE: this example essentially does what MySQLSessionHandler::start() does */
+try{
+  session_start();
+  if( $sesHandler->getInitTime < ($sesHandler->getCurReqTime() - REGEN_INTERVAL_SEC) ){
+    /* Preserve session date while marking session expired */
+    $sesHandler->setExpire(true);
+    session_regenerate_id(false);
+  }
+}catch(SessionAuthException $e){
+  session_id(null);
+  session_start();
+}
+
+$_SESSION['test'] = 'hello world';
+session_write_close();
+```
+
 ## Author(s):
 Phillip Weber
