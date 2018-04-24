@@ -22,7 +22,7 @@ CREATE TABLE `sessions` (
 ```
 
 ## Usage:
-### Built-in method for starting a session (handling built-in):
+### Class method for starting a session (handling built-in):
 ```php
 $sesHandler = new MySQLSessionHandler(new mysqli('hostName', 'user', 'password', 'dbn'));
 
