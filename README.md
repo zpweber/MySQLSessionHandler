@@ -41,14 +41,17 @@ $sesHandler = new MySQLSessionHandler(new mysqli('hostName', 'user', 'password',
 /* Example using native session_start with manual controls - NOTE: this example does exactly what MySQLSessionHandler::start() does */
 try{
   session_start();
-  if( $sesHandler->getInitTime < ($sesHandler->getCurReqTime() - REGEN_INTERVAL_SEC) ){
-    /* Preserve session date while marking session expired */
-    $sesHandler->setExpire(true);
-    session_regenerate_id(false);
-  }
 }catch(SessionAuthException $e){
+  /* Client/request could not be authenticated */
   session_id(null);
   session_start();
+}
+
+/* Regenerate stagnant session id */
+if( $sesHandler->getInitTime < ($sesHandler->getCurReqTime() - REGEN_INTERVAL_SEC) ){
+  /* Preserve session date while marking session expired */
+  $sesHandler->setExpire(true);
+  session_regenerate_id(false);
 }
 
 $_SESSION['test'] = 'hello world';
