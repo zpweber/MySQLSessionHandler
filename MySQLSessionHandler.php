@@ -100,6 +100,7 @@ class MySQLSessionHandler implements SessionHandlerInterface{
 		
 		$attempts = 0;
 		$maxAttempts = 5;
+		/* DISCUSS: adding maxAttempts to cOptions to give more control - keeping in mind that very rarely if ever will a collision occur */
 		do{
 			if( $attempts >= $maxAttempts ){
 				throw new Exception('Could not generate non-colliding sid after ' . $maxAttempts . ' attempts');
