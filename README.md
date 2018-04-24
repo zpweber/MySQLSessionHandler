@@ -32,7 +32,7 @@ $_SESSION['test'] = 'hello world';
 session_write_close();
 ```
 
-### Native session_start() with handling:
+### Native session_start() with handling example:
 ```php
 const REGEN_INTERVAL_SEC = 600;
 
