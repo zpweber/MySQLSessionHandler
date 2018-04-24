@@ -55,5 +55,8 @@ $_SESSION['test'] = 'hello world';
 session_write_close();
 ```
 
+## Discuss:
+1.) Handler can be slow because of database bottleneck; database access accounts for approximately 80-90% of execution time. This handler works great for low traffic sites (< 100 requests/sec) and the added benefits should be obvious. High traffic sites should use another solution such as caching.
+
 ## Author(s):
 Phillip Weber
