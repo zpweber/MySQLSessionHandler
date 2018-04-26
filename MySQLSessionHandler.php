@@ -1,6 +1,6 @@
 <?php
 class SessionAuthException extends RuntimeException{
-	public function __construct($message = 'Unknown reason', $code = 0, Exception $previous = null){
+	public function __construct($message = 'Unspecified', $code = 0, Exception $previous = null){
 		parent::__construct('Session could not be authenticated: ' . $message, $code, $previous);
 	}
 }
